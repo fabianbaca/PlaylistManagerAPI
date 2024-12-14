@@ -3,8 +3,6 @@ package com.fabian.PlaylistManagerAPI.model.api.requests;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data

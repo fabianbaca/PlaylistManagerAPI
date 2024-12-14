@@ -1,9 +1,9 @@
 package com.fabian.PlaylistManagerAPI.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +18,8 @@ public class Song {
     private String album;
     private String releaseYear;
     private String genre;
+
+    @JsonIgnore
     @ManyToMany(mappedBy = "songs")
-    private List<Playlist> playlists = new ArrayList<>();;
+    private List<Playlist> playlists = new ArrayList<>();
 }

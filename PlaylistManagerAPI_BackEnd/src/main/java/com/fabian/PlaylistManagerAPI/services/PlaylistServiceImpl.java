@@ -1,6 +1,7 @@
 package com.fabian.PlaylistManagerAPI.services;
 
 import com.fabian.PlaylistManagerAPI.exceptions.BadPlaylistNameException;
+import com.fabian.PlaylistManagerAPI.exceptions.BadPlaylistNotFoundException;
 import com.fabian.PlaylistManagerAPI.mappers.PlayListMapper;
 import com.fabian.PlaylistManagerAPI.mappers.SongMapper;
 import com.fabian.PlaylistManagerAPI.model.api.requests.PlayListRequest;
@@ -10,7 +11,6 @@ import com.fabian.PlaylistManagerAPI.repositories.PlaylistRepository;
 import com.fabian.PlaylistManagerAPI.repositories.SongRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class PlaylistServiceImpl implements PlaylistService {
         }
 
 
-        List<Song> songList = playListRequest.getSongRequests().stream().map(mapper::toDomain).toList();
+        List<Song> songList = playListRequest.getSongRespons().stream().map(mapper::toDomain).toList();
 
         List<String> titles = songList.stream()
                 .map(Song::getTitle)
@@ -68,5 +68,20 @@ public class PlaylistServiceImpl implements PlaylistService {
         playlist.setSongs(allSongs);
 
         return playlistRepository.save(playlist);
+    }
+
+    @Override
+    public List<Playlist> getAllPlaylists() {
+        return playlistRepository.findAll();
+    }
+
+    @Override
+    public Playlist getPlaylistByName(String listName) {
+        Optional<Playlist> playlist = playlistRepository.findByName(listName);
+        if (playlist.isPresent()) {
+            return playlist.get();
+        } else {
+            throw new BadPlaylistNotFoundException("Lista no encontrada");
+        }
     }
 }
