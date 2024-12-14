@@ -84,4 +84,14 @@ public class PlaylistServiceImpl implements PlaylistService {
             throw new BadPlaylistNotFoundException("Lista no encontrada");
         }
     }
+
+    @Override
+    public void deletePlaylist(String listName) {
+        Optional<Playlist> playlist = playlistRepository.findByName(listName);
+        if (playlist.isPresent()) {
+            playlistRepository.delete(playlist.get());
+        } else {
+            throw new BadPlaylistNotFoundException("Lista no encontrada");
+        }
+    }
 }

@@ -20,7 +20,7 @@ public class PlayListController {
     private PlaylistService playlistService;
 
     @PostMapping
-    public ResponseEntity<?> savePlayList(@RequestBody @Valid PlayListRequest playListRequest) {
+    public ResponseEntity<Playlist> savePlayList(@RequestBody @Valid PlayListRequest playListRequest) {
         return new ResponseEntity<>(playlistService.createPlaylist(playListRequest), HttpStatus.CREATED);
     }
 
@@ -32,6 +32,12 @@ public class PlayListController {
     @GetMapping("/{listName}")
     public ResponseEntity<Playlist> getPlaylist(@PathVariable String listName) {
         return ResponseEntity.ok(playlistService.getPlaylistByName(listName));
+    }
+
+    @DeleteMapping("/{listName}")
+    public ResponseEntity<Void> deletePlaylist(@PathVariable String listName) {
+        playlistService.deletePlaylist(listName);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
