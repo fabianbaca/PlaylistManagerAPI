@@ -12,4 +12,5 @@ public interface PlaylistService {
 
     Playlist getPlaylistByName(String listName);
 
+    void deletePlaylist(String listName);
 }
