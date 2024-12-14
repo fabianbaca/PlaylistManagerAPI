@@ -1,0 +1,54 @@
+.card {
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+
+  /* playlist.component.css */
+
+/* Estilo para los botones dentro del input-group */
+.input-group button {
+    margin-left: 5px;  /* Espaciado entre los botones */
+  }
+  
+  /* Mejorar el hover de los botones */
+  .input-group button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Asegurarse de que el botón Limpiar tenga un color distintivo */
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+  
+
+  .jumbotron {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 5px;
+  }
+  
+  .jumbotron h1 {
+    font-size: 2.5rem;
+  }
+  
+  .jumbotron p {
+    font-size: 1.2rem;
+    color: #6c757d;
+  }

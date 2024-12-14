@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <!-- Botón de regresar -->
+  <button class="btn btn-secondary mb-3" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i> 
+  </button>
+
+  <h2>Crear Playlist</h2>
+
+  <!-- Formulario de Playlist -->
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <!-- Campo para el nombre de la Playlist -->
+      <label for="playlistName" class="form-label">Nombre de la Playlist</label>
+      <input type="text" id="playlistName" class="form-control" [(ngModel)]="playlist.name" name="name" required />
+    </div>
+    
+    <div class="mb-3">
+      <!-- Campo para la descripción -->
+      <label for="playlistDescription" class="form-label">Descripción</label>
+      <textarea id="playlistDescription" class="form-control" [(ngModel)]="playlist.description" name="description" rows="3" required></textarea>
+    </div>
+
+    <!-- Tabla de canciones con campos editables -->
+    <div class="mb-3">
+      <div style="max-height: 600px; overflow-y: auto;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Número</th> <!-- Campo Número -->
+              <th>Título</th>
+              <th>Artista</th>
+              <th>Álbum</th>
+              <th>Género</th>
+              <th>Año</th>
+              <th>
+                <!-- Botón Añadir Canción dentro de la tabla, al final de la cabecera -->
+                <button type="button" class="btn btn-success" (click)="addSong()">
+                  <i class="fas fa-plus"></i> 
+                </button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let song of playlist.songs; let i = index">
+              <td>{{ i + 1 }}</td> <!-- Mostrar el número de la canción -->
+              <td><input type="text" class="form-control" [(ngModel)]="song.title" name="title-{{i}}"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="song.artist" name="artist-{{i}}"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="song.album" name="album-{{i}}"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="song.genre" name="genre-{{i}}"></td>
+              <td><input type="number" class="form-control" [(ngModel)]="song.year" name="year-{{i}}"></td>
+              <td>
+                <button *ngIf="playlist.songs.length > 1" class="btn btn-danger btn-sm" (click)="removeSong(i)">
+                  <i class="fas fa-trash"></i> <!-- Icono de basurero -->
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Botón para guardar la Playlist debajo de la tabla -->
+    <button type="submit" class="btn btn-success mt-3">Guardar Playlist</button>
+  </form>
+</div>
