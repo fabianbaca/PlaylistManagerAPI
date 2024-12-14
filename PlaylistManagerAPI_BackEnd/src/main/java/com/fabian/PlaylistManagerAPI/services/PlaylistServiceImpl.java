@@ -45,7 +45,7 @@ public class PlaylistServiceImpl implements PlaylistService {
         }
 
 
-        List<Song> songList = playListRequest.getSongRespons().stream().map(mapper::toDomain).toList();
+        List<Song> songList = playListRequest.getSongRequests().stream().map(mapper::toDomain).toList();
 
         List<String> titles = songList.stream()
                 .map(Song::getTitle)
