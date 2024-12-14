@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { PlaylistService } from 'src/app/service/playlist.service';
 
 @Component({
   selector: 'app-playlist',
@@ -9,64 +10,53 @@ import { Router } from '@angular/router';
 export class PlaylistComponent {
 
   searchTerm: string = '';
-  playlists = [
-    {
-      id: 1,
-      name: 'Playlist 1',
-      description: 'Una lista de canciones geniales.',
-      songs: [
-        { title: 'Canción 1', artist: 'Artista 1', album: 'Álbum 1', genre: 'Pop', year: 2020 },
-        { title: 'Canción 2', artist: 'Artista 2', album: 'Álbum 2', genre: 'Rock', year: 2019 },
-        { title: 'Canción 3', artist: 'Artista 3', album: 'Álbum 3', genre: 'Jazz', year: 2021 }
-      ]
-    },
-    {
-      id: 2,
-      name: 'Playlist 2',
-      description: 'Otra lista, con más canciones.',
-      songs: [
-        { title: 'Canción A', artist: 'Artista A', album: 'Álbum A', genre: 'Reggaetón', year: 2018 },
-        { title: 'Canción B', artist: 'Artista B', album: 'Álbum B', genre: 'Hip Hop', year: 2020 },
-        { title: 'Canción C', artist: 'Artista C', album: 'Álbum C', genre: 'Electrónica', year: 2021 }
-      ]
-    },
-    {
-      id: 3,
-      name: 'Playlist 3',
-      description: 'Una lista de música tranquila y relajante.',
-      songs: [
-        { title: 'Canción X', artist: 'Artista X', album: 'Álbum X', genre: 'Clásica', year: 2015 },
-        { title: 'Canción Y', artist: 'Artista Y', album: 'Álbum Y', genre: 'Ambient', year: 2017 },
-        { title: 'Canción Z', artist: 'Artista Z', album: 'Álbum Z', genre: 'New Age', year: 2019 }
-      ]
-    }
-  ];
-  
-  
+  playlists: any[] = [];
   filteredPlaylists = this.playlists;  // Lista filtrada inicializada con todas las playlists
 
-  constructor(private router: Router) {}
+  constructor(
+    private playlistService: PlaylistService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.filterPlaylists();  // Filtrar al inicio por defecto
+    this.loadPlaylists();  // Cargar todas las playlists al iniciar
   }
 
-  // Función para filtrar las playlists según el término de búsqueda
+  // Función para cargar todas las playlists
+  loadPlaylists(): void {
+    this.playlistService.getPlaylists().subscribe({
+      next: (response) => {
+        this.playlists = response;
+        this.filteredPlaylists = this.playlists; // Inicializar la lista filtrada con todas las playlists
+      },
+      error: (error) => {
+        console.error('Error al cargar las playlists:', error);
+      }
+    });
+  }
+
   filterPlaylists(): void {
-    this.filteredPlaylists = this.playlists.filter(playlist => 
-      playlist.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
-      playlist.description.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+    if (this.searchTerm.trim() === '') {
+      this.filteredPlaylists = this.playlists;
+    } else {
+      this.playlistService.getPlaylistByName(this.searchTerm).subscribe({
+        next: (response) => {
+          this.filteredPlaylists = [response];
+        },
+        error: (error) => {
+          this.filteredPlaylists =[];
+          console.error('Error al buscar la playlist:', error);
+        }
+      });
+    }
   }
 
-  // Función para ir a la vista de detalles
   goToSongDetail(playlist: any): void {
     this.router.navigate(['/song-detail'], {
       queryParams: { data: JSON.stringify(playlist) }
     });
   }
 
-  // Función de hover en la tarjeta
   onMouseOver(playlist: any) {
     console.log('Mouse sobre: ', playlist);
   }
@@ -75,23 +65,31 @@ export class PlaylistComponent {
     console.log('Mouse fuera');
   }
 
-  // Función de creación de lista de reproducción
+
   goToFormPlaylist(): void {
     this.router.navigate(['/form-playlist']);
   }
 
-  // Función para limpiar el campo de búsqueda y mostrar todas las playlists
+
   clearSearch(): void {
     this.searchTerm = '';
-    this.filteredPlaylists = this.playlists;  // Restablecer la lista filtrada
+    this.filteredPlaylists = this.playlists;  
   }
 
 
   deletePlaylist(playlist: any): void {
-    const index = this.filteredPlaylists.indexOf(playlist);
-    if (index !== -1) {
-      this.filteredPlaylists.splice(index, 1);  // Eliminar la playlist
-    }
+    this.playlistService.deletePlaylist(playlist.name).subscribe({
+      next: () => {
+        const index = this.filteredPlaylists.indexOf(playlist);
+        if (index !== -1) {
+          this.filteredPlaylists.splice(index, 1); 
+        }
+        console.log('Playlist eliminada');
+      },
+      error: (error) => {
+        console.error('Error al eliminar la playlist:', error);
+      }
+    });
   }
   
 
