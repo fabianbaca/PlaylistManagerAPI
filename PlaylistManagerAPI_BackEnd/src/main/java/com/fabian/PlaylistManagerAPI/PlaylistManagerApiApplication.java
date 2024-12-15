@@ -21,7 +21,7 @@ public class PlaylistManagerApiApplication {
 				// Permite todas las rutas
 				registry.addMapping("/**")
 						.allowedOrigins("http://localhost:4200") // Permite solicitudes de este origen (ajustar si es necesario)
-						.allowedMethods("GET", "POST", "PUT", "DELETE") // Métodos permitidos
+						.allowedMethods("*") // Métodos permitidos
 						.allowedHeaders("*") // Todos los encabezados permitidos
 						.allowCredentials(true); // Permitir credenciales (como cookies)
 			}
