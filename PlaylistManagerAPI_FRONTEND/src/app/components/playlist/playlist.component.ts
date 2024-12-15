@@ -58,13 +58,6 @@ export class PlaylistComponent {
     });
   }
 
-  onMouseOver(playlist: any) {
-    console.log('Mouse sobre: ', playlist);
-  }
-
-  onMouseLeave() {
-    console.log('Mouse fuera');
-  }
 
 
   goToFormPlaylist(): void {
@@ -85,7 +78,6 @@ export class PlaylistComponent {
         if (index !== -1) {
           this.filteredPlaylists.splice(index, 1); 
         }
-        console.log('Playlist eliminada');
       },
       error: (error) => {
         this.alertService.showError('Error: ' + (error?.error?.message || 'Ha ocurrido un error desconocido.'));

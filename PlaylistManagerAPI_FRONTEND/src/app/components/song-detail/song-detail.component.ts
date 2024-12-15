@@ -17,7 +17,6 @@ export class SongDetailComponent {
 
     if (data) {
       this.songDetails = JSON.parse(data); 
-      console.log(this.songDetails)
     }
   }
 

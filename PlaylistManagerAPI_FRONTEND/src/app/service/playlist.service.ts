@@ -26,7 +26,6 @@ export class PlaylistService {
         'Content-Type': 'application/json'
       }) : new HttpHeaders();
     
-      console.log('Headers configurados:', headers);
       return headers;
     }
     
