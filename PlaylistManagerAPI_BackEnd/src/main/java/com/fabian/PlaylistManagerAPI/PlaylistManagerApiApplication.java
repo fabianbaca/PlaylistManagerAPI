@@ -20,10 +20,10 @@ public class PlaylistManagerApiApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				// Permite todas las rutas
 				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:4200") // Permite solicitudes de este origen (ajustar si es necesario)
-						.allowedMethods("*") // Métodos permitidos
-						.allowedHeaders("*") // Todos los encabezados permitidos
-						.allowCredentials(true); // Permitir credenciales (como cookies)
+						.allowedOrigins("http://localhost:4200") //
+						.allowedMethods("*")
+						.allowedHeaders("*")
+						.allowCredentials(true);
 			}
 		};
 	}

@@ -12,18 +12,15 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  // Método de login
   login(username: string, password: string): Observable<any> {
     const url = `${this.apiUrl}?username=${username}&password=${password}`;
     return this.http.post(url, null);
   }
 
-  // Verificar si el usuario está autenticado
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('authToken');  // Si tienes un token en localStorage, el usuario está autenticado
+    return !!localStorage.getItem('authToken'); 
   }
 
-  // Cerrar sesión
   logout(): void {
     localStorage.removeItem('authToken');
   }

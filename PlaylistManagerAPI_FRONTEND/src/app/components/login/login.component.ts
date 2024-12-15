@@ -15,7 +15,6 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // Función para hacer login
   login(): void {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/alert.service';
 import { PlayList } from 'src/app/models/PlayList';
 import { Song } from 'src/app/models/Song';
 import { PlaylistService } from 'src/app/service/playlist.service';
@@ -11,7 +12,7 @@ import { PlaylistService } from 'src/app/service/playlist.service';
 })
 export class FormPlayListComponent {
 
-  constructor(private router: Router, private playlistService: PlaylistService) {}
+  constructor(private router: Router, private playlistService: PlaylistService, private alertService: AlertService) {}
 
   playlist = {
     name: '',
@@ -21,12 +22,14 @@ export class FormPlayListComponent {
     ]
   };
 
-  // Agregar una nueva canción a la lista
+  get hasSongWithTitle() {
+    return this.playlist.songs.some(song => song.title);
+  }
+
   addSong() {
     this.playlist.songs.push({ title: '', artist: '', album: '', genre: '', year: '' });
   }
 
-  // Eliminar una canción de la lista
   removeSong(index: number) {
     this.playlist.songs.splice(index, 1);
   }
@@ -44,19 +47,19 @@ export class FormPlayListComponent {
       ))
     };
 
-
     this.playlistService.createPlaylist(playlistRequest).subscribe({
       next: (response) => {
-        console.log('Playlist guardada con éxito:', response);
         this.router.navigate(['/']); 
+        this.alertService.showSuccess('¡Lista de reproducción creada con éxito!');
       },
       error: (error) => {
-        console.error('Error al guardar la playlist:', error);
+        this.alertService.showError('Error: ' + (error?.error?.message || 'Ha ocurrido un error desconocido.'));
       }
     });
   }
 
   goBack() {
-    this.router.navigate(['/']); // Redirige al usuario a la página principal o lista de playlists
+    this.router.navigate(['/']); 
   }
+
 }

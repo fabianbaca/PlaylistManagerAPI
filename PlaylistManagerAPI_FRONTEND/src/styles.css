@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+/* Estilo general para los toasts (error y éxito) */
+.custom-toast-error, .custom-toast-success {
+    background-color: #dc3545 !important; /* Rojo para error */
+    color: black;
+    font-size: 1rem;
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 10px 20px; /* Padding ajustado */
+    max-width: 300px; /* Limitar el ancho */
+    width: 100%; /* Flexible hasta el max-width */
+    margin: 0 auto; /* Centrado horizontal */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para profundidad */
+  }
+  
+  /* Estilos para el contenedor de toast (centrado en la parte inferior) */
+  .toast-container {
+    position: fixed;
+    bottom: 20px; /* Coloca el toast un poco más arriba */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999; /* Asegura que el toast esté encima de otros elementos */
+  }
+  
+  .toast .toast-icon {
+    display: none !important;
+  }
+  
+  .toast .toast-title {
+    display: none !important; 
+  }
+  
+  .toast-message {
+    padding-left: 10px;
+  }
+  
+  .custom-toast-success {
+    background-color: #28a745 !important; 
+  }
+  

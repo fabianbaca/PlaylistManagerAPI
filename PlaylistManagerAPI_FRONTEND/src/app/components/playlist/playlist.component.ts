@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/alert.service';
 import { PlaylistService } from 'src/app/service/playlist.service';
 
 @Component({
@@ -11,23 +12,24 @@ export class PlaylistComponent {
 
   searchTerm: string = '';
   playlists: any[] = [];
-  filteredPlaylists = this.playlists;  // Lista filtrada inicializada con todas las playlists
+  filteredPlaylists = this.playlists;  
 
   constructor(
     private playlistService: PlaylistService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
-    this.loadPlaylists();  // Cargar todas las playlists al iniciar
+    this.loadPlaylists(); 
   }
 
-  // Función para cargar todas las playlists
+
   loadPlaylists(): void {
     this.playlistService.getPlaylists().subscribe({
       next: (response) => {
         this.playlists = response;
-        this.filteredPlaylists = this.playlists; // Inicializar la lista filtrada con todas las playlists
+        this.filteredPlaylists = this.playlists;
       },
       error: (error) => {
         console.error('Error al cargar las playlists:', error);
@@ -45,7 +47,6 @@ export class PlaylistComponent {
         },
         error: (error) => {
           this.filteredPlaylists =[];
-          console.error('Error al buscar la playlist:', error);
         }
       });
     }
@@ -87,7 +88,7 @@ export class PlaylistComponent {
         console.log('Playlist eliminada');
       },
       error: (error) => {
-        console.error('Error al eliminar la playlist:', error);
+        this.alertService.showError('Error: ' + (error?.error?.message || 'Ha ocurrido un error desconocido.'));
       }
     });
   }

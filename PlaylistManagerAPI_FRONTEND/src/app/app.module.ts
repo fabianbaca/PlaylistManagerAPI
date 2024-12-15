@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';  // Solo importa AppRoutingModule
+import { AppRoutingModule } from './app-routing.module';  
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-// Componentes personalizados
 import { FormPlayListComponent } from './components/form-play-list/form-play-list.component';
 import { PlaylistComponent } from './components/playlist/playlist.component';
 import { SongDetailComponent } from './components/song-detail/song-detail.component';
 import { LoginComponent } from './components/login/login.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -24,9 +24,11 @@ import { LoginComponent } from './components/login/login.component';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule,  // Asegúrate de que AppRoutingModule esté importado aquí
+    AppRoutingModule,  
     FormsModule,
-    BrowserAnimationsModule
+    ToastrModule.forRoot(), 
+    BrowserAnimationsModule,
+
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
