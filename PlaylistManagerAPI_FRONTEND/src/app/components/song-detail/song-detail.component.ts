@@ -14,13 +14,14 @@ export class SongDetailComponent {
 
   ngOnInit(): void {
     const data = this.route.snapshot.queryParamMap.get('data');
+
     if (data) {
       this.songDetails = JSON.parse(data); 
     }
   }
 
   goBack() {
-    this.router.navigate(['/']); // Navega a la lista de playlists o la ruta que desees
+    this.router.navigate(['/']); 
   }
 
 }

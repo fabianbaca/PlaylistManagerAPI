@@ -1,38 +1,28 @@
 <div class="container mt-5">
-  <!-- Banner -->
   <div class="jumbotron text-center mb-5">
-    <h1 class="display-4 mb-4">My Playlist</h1>  <!-- Título agregado -->
+    <h1 class="display-4 mb-4">My Playlist</h1>  
     <div class="row justify-content-between align-items-center">
       <div class="col-md-8">
         <div class="input-group">
-          <!-- Input de búsqueda -->
           <input type="text" class="form-control" placeholder="Buscar por nombre" [(ngModel)]="searchTerm">
-          <!-- Botón para limpiar el campo de búsqueda con borde -->
           <button class="btn btn-light" style="border: 1px solid #6c757d;" (click)="clearSearch()">
-            <i class="fas fa-eraser"></i> <!-- Icono de borrar (limpiar) -->
+            <i class="fas fa-eraser"></i>
           </button>        
-          <!-- Botón de búsqueda con icono de lupa -->
           <button class="btn btn-primary" (click)="filterPlaylists()">
-            <i class="fas fa-search"></i> <!-- Icono de lupa de Font Awesome -->
+            <i class="fas fa-search"></i>
           </button>
         </div>
       </div>
       <div class="col-md-2 d-flex justify-content-end">
-        <!-- Botón para crear playlist alineado a la derecha -->
         <button class="btn btn-success" (click)="goToFormPlaylist()">Crear</button>
       </div>
     </div>
   </div>
 
-
-
-
-  <!-- Lista de canciones en forma de tarjetas -->
   <div class="row">
     <div class="col-md-4" *ngFor="let playlist of filteredPlaylists">
       <div class="card mb-4">
         <div class="card-body d-flex justify-content-between align-items-center">
-          <!-- Título y descripción de la playlist -->
           <div>
             <h5 class="card-title">{{ playlist.name }}</h5>
             <p class="card-text" [ngStyle]="{ 'text-overflow': 'ellipsis', 'white-space': 'nowrap', 'overflow': 'hidden' }">
@@ -40,16 +30,13 @@
             </p>
           </div>
 
-          <!-- Botones: Play y Borrar -->
           <div class="d-flex align-items-center">
-            <!-- Botón Play con icono de reproducción (verde) -->
             <button class="btn btn-success btn-sm mr-2" (click)="goToSongDetail(playlist)">
-              <i class="fas fa-play"></i> <!-- Icono de Play -->
+              <i class="fas fa-play"></i> 
             </button>
 
-            <!-- Botón Borrar con icono de basurero -->
             <button class="btn btn-danger btn-sm" (click)="deletePlaylist(playlist)">
-              <i class="fas fa-trash"></i> <!-- Icono de Borrar -->
+              <i class="fas fa-trash"></i> 
             </button>
           </div>
         </div>

@@ -1,18 +1,15 @@
 <div class="container mt-5">
 
-    <!-- Botón de regresar con una flecha -->
     <button (click)="goBack()" class="btn btn-secondary">
       <i class="bi bi-arrow-left"></i> 
     </button>
 
 
-    <!-- Banner -->
     <div class="jumbotron text-center mb-5">
       <h1 class="display-4">{{ songDetails?.name }}</h1>
       <p class="lead">{{ songDetails?.description }}</p>
     </div>
   
-    <!-- Tabla de Canciones -->
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <thead>
@@ -26,14 +23,13 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Iterar sobre las canciones -->
           <tr *ngFor="let song of songDetails?.songs; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ song.title }}</td>
             <td>{{ song.artist }}</td>
             <td>{{ song.album }}</td>
             <td>{{ song.genre }}</td>
-            <td>{{ song.year }}</td>
+            <td>{{ song.releaseYear }}</td>
           </tr>
         </tbody>
       </table>
